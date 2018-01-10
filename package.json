@@ -1,0 +1,22 @@
+{
+  "name": "contracts-et4",
+  "version": "0.1.0",
+  "description": "Contracts for ET4",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "truffle test"
+  },
+  "keywords": [
+    "ethereum"
+  ],
+  "dependencies": {
+    "@daonomic/tokens": "~0.1",
+    "@daonomic/sale": "~0.1"
+  },
+  "devDependencies": {
+    "@daonomic/tests-common": "~0.1"
+  }
+}
