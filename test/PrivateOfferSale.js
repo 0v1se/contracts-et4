@@ -1,12 +1,12 @@
-var Sale = artifacts.require('EthBtcSale.sol');
-var Token = artifacts.require('FinalToken.sol');
+var Sale = artifacts.require('PrivateOfferSale.sol');
+var Token = artifacts.require('Eticket4Token.sol');
 
 const tests = require("@daonomic/tests-common");
 const awaitEvent = tests.awaitEvent;
 const expectThrow = tests.expectThrow;
 const randomAddress = tests.randomAddress;
 
-contract("EthBtcSale", accounts => {
+contract("PrivateOfferSale", accounts => {
   let token;
 
   beforeEach(async function() {
@@ -23,8 +23,8 @@ contract("EthBtcSale", accounts => {
     await token.transferOwnership(sale.address);
 
     await sale.sendTransaction({from: accounts[1], value: 1});
-    assert.equal(await token.totalSupply(), 750);
-    assert.equal(await token.balanceOf(accounts[1]), 750);
+    assert.equal(await token.totalSupply(), 1400);
+    assert.equal(await token.balanceOf(accounts[1]), 1400);
   });
 
   it("should calculate bonus correctly", async () => {
@@ -35,26 +35,7 @@ contract("EthBtcSale", accounts => {
         assert(testBonus.equals(await sale.getBonus(sold)));
     }
 
-    await testBonus(0, 100, bn(50));
-    await testBonus(10, 100, bn(45));
-    await testBonus(50, 100, bn(15));
-    await testBonus(100, 100, bn(0));
-    await testBonus(100, bn("1000000000000000000000"), bn(0));
-    await testBonus(100, bn("2000000000000000000000"), bn("100000000000000000000"));
-    await testBonus(100, bn("5000000000000000000000"), bn("250000000000000000000"));
-    await testBonus(100, bn("6000000000000000000000"), bn("450000000000000000000"));
-    await testBonus(100, bn("12000000000000000000000"), bn("1200000000000000000000"));
-    await testBonus(100, bn("18000000000000000000000"), bn("2250000000000000000000"));
-    await testBonus(100, bn("50000000000000000000000"), bn("7500000000000000000000"));
-  });
-
-  it("should calculate bonus according to custom bonus", async () => {
-    var now = new Date().getTime() / 1000;
-    var sale = await Sale.new(token.address, 100, now - 100, now + 86400 * 100, 1000000);
-
-	assert(bn(500).equals(await sale.getBonus(1000)));
-    await sale.setCustomBonus(5);
-    assert(bn(5).equals(await sale.getBonus(1000)));
+    await testBonus(0, 100, bn(40));
   });
 
   it("should not sell if ended", async () => {
@@ -85,7 +66,7 @@ contract("EthBtcSale", accounts => {
 
   it("should throw if cap reached", async () => {
     var now = new Date().getTime() / 1000;
-    var sale = await Sale.new(token.address, 100, now - 100, now + 86400, 500);
+    var sale = await Sale.new(token.address, 100, now - 100, now + 86400, 1500);
     await token.transferOwnership(sale.address);
 
 	await expectThrow(

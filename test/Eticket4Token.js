@@ -5,7 +5,7 @@ const awaitEvent = tests.awaitEvent;
 const expectThrow = tests.expectThrow;
 const randomAddress = tests.randomAddress;
 
-contract("FinalToken", accounts => {
+contract("Eticket4Token", accounts => {
   let token;
 
   beforeEach(async function() {
