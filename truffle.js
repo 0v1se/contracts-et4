@@ -42,8 +42,8 @@ module.exports = {
 };
 
 var networkConfig = {
-    gas: 3000000,
-    gasPrice: 10000000000
+    gas: 1500000,
+    gasPrice: 100000000000
 };
 
 if (config) {
