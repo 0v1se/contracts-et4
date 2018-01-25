@@ -36,6 +36,11 @@ contract Eticket4Sale is MintingSale, OwnableImpl, CappedSale {
         }
     }
 
+    function setBthEthRate(uint256 rate) onlyOwner public {
+        require(rate != 0);
+        btcEthRate = rate;
+    }
+
     function withdrawEth(address _to, uint256 _value) onlyOwner public {
         withdraw(address(0), _to, _value);
     }
