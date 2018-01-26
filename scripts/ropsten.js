@@ -1,6 +1,7 @@
-var token = Eticket4Token.at("0x13f8c4cafd191cfe9a879058a027ee8bee459764");
-token.transferOwnership("0x44a72aeb7dac73c4b72f89d6855de063949627f3");
+var token = Eticket4Token.at("0x5ab7f3b0a00868612e0883f4353493575d2cdcb2");
+token.transferOwnership("0x9c4008c01fa769343f7a896c3eaf8ca3063f5110");
 
-PrivateOfferSale.new("0x13f8c4cafd191cfe9a879058a027ee8bee459764", "0x5cbef5849c3b4d86f6830784fd3f879a2d2e61c7", 1515581326, 1615581326, "3000000000000000000000000");
-var sale = PrivateOfferSale.at("0x44a72aeb7dac73c4b72f89d6855de063949627f3");
+PrivateOfferSale.new("0x5ab7f3b0a00868612e0883f4353493575d2cdcb2", "0x5cbef5849c3b4d86f6830784fd3f879a2d2e61c7", 1515581326, 1615581326, "3000000000000000000000000");
+var sale = PrivateOfferSale.at("0x9c4008c01fa769343f7a896c3eaf8ca3063f5110");
 
+sale.transferOwnership("0x21bf4f0681da874734573afd4a47d6914af7d94d");

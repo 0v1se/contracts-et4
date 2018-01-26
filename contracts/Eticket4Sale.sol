@@ -54,4 +54,11 @@ contract Eticket4Sale is MintingSale, OwnableImpl, CappedSale {
     function transferTokenOwnership(address newOwner) onlyOwner public {
         OwnableImpl(token).transferOwnership(newOwner);
     }
+
+    function transfer(address beneficiary, uint256 amount) onlyOwner public {
+        uint256 bonus = getBonus(amount);
+        doPurchase(beneficiary, amount, bonus);
+        Purchase(beneficiary, address(1), 0, amount, bonus);
+        onPurchase(beneficiary, address(1), 0, amount, bonus);
+    }
 }

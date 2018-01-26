@@ -27,6 +27,19 @@ contract("Eticket4Sale", accounts => {
     assert.equal(await token.balanceOf(accounts[1]), 1400);
   });
 
+  it("should transfer tokens sold some other way", async () => {
+    var now = new Date().getTime() / 1000;
+    var sale = await Sale.new(token.address, 100, now - 100, now + 86400, 1000000);
+    await token.transferOwnership(sale.address);
+
+	var address = randomAddress();
+    await sale.transfer(address, 1000);
+
+    assert.equal((await token.totalSupply()).toNumber(), 1400);
+    assert.equal((await token.balanceOf(address)).toNumber(), 1400);
+    assert.equal(await sale.cap(), 1000000 - 1000);
+  });
+
   it("should sell tokens for btc", async () => {
     var now = new Date().getTime() / 1000;
     var sale = await Sale.new(token.address, accounts[5], now - 100, now + 86400, bn("1000000000000000000000000"));
