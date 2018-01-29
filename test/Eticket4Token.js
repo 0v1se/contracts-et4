@@ -54,4 +54,21 @@ contract("Eticket4Token", accounts => {
 	assert.equal(await token.balanceOf(accounts[2]), 50);
   });
 
+  it("should let burn tokens", async () => {
+    await token.mint(accounts[1], 100);
+    assert.equal(await token.balanceOf(accounts[1]), 100);
+    assert.equal(await token.totalSupply(), 100);
+
+	await token.burn(20, {from: accounts[1]});
+	assert.equal(await token.balanceOf(accounts[1]), 80);
+	assert.equal(await token.totalSupply(), 80);
+  });
+
+  it("should not let burn more than you have", async () => {
+    await token.mint(accounts[1], 100);
+	await expectThrow(
+		token.burn(101, {from: accounts[1]})
+	);
+  });
+
 });
