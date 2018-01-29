@@ -8,11 +8,16 @@ contract PreSale is Eticket4Sale {
 	}
 
 	function getBonus(uint256 sold) constant public returns (uint256) {
-		return getTimeBonus(sold) + getAmountBonus(sold);
+		uint256 diffDays = (now - start) / 86400;
+		if (diffDays < 2) {
+			return sold.mul(40).div(100);
+		} else {
+			return getTimeBonus(sold, diffDays) + getAmountBonus(sold);
+		}
 	}
 
-	function getTimeBonus(uint256 sold) internal returns (uint256) {
-		uint256 interval = (now - start) / (86400 * 5);
+	function getTimeBonus(uint256 sold, uint256 diffDays) internal returns (uint256) {
+		uint256 interval = (diffDays - 2) / 5;
 		if (interval == 0) {
 			return sold.mul(15).div(100);
 		} else if (interval == 1) {

@@ -26,11 +26,13 @@ contract("PreSale", accounts => {
         assert(testBonus.equals(result), testBonus.toNumber() + " != " + result.toNumber());
     }
 
-    await testBonus(0, 100, bn(15));
-    await testBonus(6, 100, bn(12));
-    await testBonus(11, 100, bn(10));
-    await testBonus(18, 100, bn(10));
-    await testBonus(21, 100, bn(8));
+	await testBonus(0, 100, bn(40));
+	await testBonus(1, 100, bn(40));
+	await testBonus(2, 100, bn(15));
+    await testBonus(8, 100, bn(12));
+    await testBonus(13, 100, bn(10));
+    await testBonus(20, 100, bn(10));
+    await testBonus(23, 100, bn(8));
     await testBonus(100, bn("1000000000000000000000"), bn("80000000000000000000"));
     await testBonus(100, bn("2000000000000000000000"), bn("360000000000000000000"));
     await testBonus(100, bn("6000000000000000000000"), bn("1380000000000000000000"));
