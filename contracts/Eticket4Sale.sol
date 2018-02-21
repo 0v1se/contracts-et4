@@ -1,22 +1,27 @@
 pragma solidity ^0.4.18;
 
+import "@daonomic/util/contracts/Pausable.sol";
 import "@daonomic/util/contracts/OwnableImpl.sol";
 import "@daonomic/sale/contracts/MintingSale.sol";
 import "@daonomic/sale/contracts/CappedSale.sol";
+import "@daonomic/sale/contracts/PeriodSale.sol";
 
-contract Eticket4Sale is MintingSale, OwnableImpl, CappedSale {
+contract Eticket4Sale is MintingSale, PeriodSale, OwnableImpl, CappedSale {
     address public btcToken;
-
-    uint256 public start;
-    uint256 public end;
 
     uint256 public btcEthRate = 10 * 10**10;
     uint256 public constant ethEt4Rate = 1000 * 10**18;
 
-    function Eticket4Sale(address _mintableToken, address _btcToken, uint256 _start, uint256 _end, uint256 _cap) MintingSale(_mintableToken) CappedSale(_cap) {
+    function Eticket4Sale(
+        address _mintableToken,
+        address _btcToken,
+        uint256 _start,
+        uint256 _end,
+        uint256 _cap)
+    MintingSale(_mintableToken)
+    PeriodSale(_start, _end)
+    CappedSale(_cap) {
         btcToken = _btcToken;
-        start = _start;
-        end = _end;
         RateAdd(address(0));
         RateAdd(_btcToken);
     }
@@ -43,16 +48,20 @@ contract Eticket4Sale is MintingSale, OwnableImpl, CappedSale {
         BtcEthRateChange(_btcEthRate);
     }
 
-    function withdrawEth(address _to, uint256 _value) onlyOwner public {
-        withdraw(address(0), _to, _value);
-    }
-
     function withdrawBtc(bytes _to, uint256 _value) onlyOwner public {
         burnWithData(btcToken, _value, _to);
     }
 
     function transferTokenOwnership(address newOwner) onlyOwner public {
         OwnableImpl(token).transferOwnership(newOwner);
+    }
+
+    function pauseToken() onlyOwner public {
+        Pausable(token).pause();
+    }
+
+    function unpauseToken() onlyOwner public {
+        Pausable(token).unpause();
     }
 
     function transferWithBonus(address beneficiary, uint256 amount) onlyOwner public {

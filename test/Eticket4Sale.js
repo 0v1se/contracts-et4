@@ -42,7 +42,7 @@ contract("Eticket4Sale", accounts => {
 
   it("should transfer tokens sold some other way (no bonus)", async () => {
     var now = new Date().getTime() / 1000;
-    var sale = await Sale.new(token.address, 100, now - 100, now + 86400, 1000000);
+    var sale = await Sale.new(token.address, 100, now + 1000, now + 86400, 1000000);
     await token.transferOwnership(sale.address);
 
 	var address = randomAddress();
