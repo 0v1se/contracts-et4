@@ -2,8 +2,10 @@ pragma solidity ^0.4.0;
 
 import "./Eticket4Sale.sol";
 import "./DaoxCommissionSale.sol";
+import "@daonomic/util/contracts/SecuredImpl.sol";
+import "@daonomic/sale/contracts/Whitelist.sol";
 
-contract PublicSale is Eticket4Sale, DaoxCommissionSale {
+contract PublicSale is SecuredImpl, Whitelist, Eticket4Sale, DaoxCommissionSale {
 	function PublicSale(
 		address _mintableToken,
 		address _btcToken,
@@ -44,6 +46,13 @@ contract PublicSale is Eticket4Sale, DaoxCommissionSale {
 			return sold.mul(5).div(100);
 		} else {
 			return 0;
+		}
+	}
+
+	function checkPurchaseValid(address buyer, uint256 sold, uint256 bonus) internal {
+		super.checkPurchaseValid(buyer, sold, bonus);
+		if (sold >= 10000 * 10 ** 18) {
+			require(isInWhitelist(buyer));
 		}
 	}
 }
