@@ -24,3 +24,12 @@ OwnableImpl.at("0x47bdedbb82bb8aebeb5f0e9b93cca1e3fc453740").transferOwnership("
 OwnableImpl.at("0xa54a7d890c5f7621c75de8a62011ebaebc1b2106").transferOwnership("0x949891b107719290fFf1396911fC43Ce527ed31a");
 OwnableImpl.at("0x7acbc0b5c51027dc659a19f257bb3e462309b626").transferOwnership("0x949891b107719290fFf1396911fC43Ce527ed31a");
 
+//--------------------------------------------------- PublicSale ----------------------------------------------
+
+PublicSale.new("0x80238d9451f86dcf12bff21af9e8deadcf915bff", "0xf876c67ce21a03a848dbae562d583296ee5a8449", 1520208000, 1522454400, "13000000000000000000000000");
+PublicSale.at("0xf76350f0ad6b7cfce1311ef43e2eef488fd16dad").transferRole("operator", "0x18e297e91463b248d5bc739bac5bcd26b0448202");
+PublicSale.at("0xf76350f0ad6b7cfce1311ef43e2eef488fd16dad").transferOwnership("0x949891b107719290fFf1396911fC43Ce527ed31a");
+
+PublicSale.new("0x80238d9451f86dcf12bff21af9e8deadcf915bff", "0xf876c67ce21a03a848dbae562d583296ee5a8449", 1520208000, 1523059200, "12500000000000000000000000");
+PublicSale.at("0xca6bfff19a5b5504d03945897907e78f5fc9287b").transferRole("operator", "0x18e297e91463b248d5bc739bac5bcd26b0448202");
+PublicSale.at("0xca6bfff19a5b5504d03945897907e78f5fc9287b").transferOwnership("0x949891b107719290fFf1396911fC43Ce527ed31a");
